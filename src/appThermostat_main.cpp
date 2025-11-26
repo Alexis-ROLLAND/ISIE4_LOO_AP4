@@ -1,140 +1,134 @@
 /**
  *	@file		appThermostat_main.cpp
- * 	@brief 		main for the Thermostat App 
+ * 	@brief 		main for the Thermostat App
  * 	@author		Alexis ROLLAND
  * 	@date		09/2024
- * 
+ *
  */
-#include <print>
 #include <memory>
+#include <print>
 
-#include "appThermostat.hpp"
 #include "Chaudiere.hpp"
 #include "DummyCapteurTemp.hpp"
 #include "NetworkCapteurTemp.hpp"
+#include "appThermostat.hpp"
 
 #include <cassert>
 
-//#define		TEST_CHAUDIERE
-//#define		TEST_DUMMY_CAPTEUR_TEMP
-//#define		TEST_NETWORK_CAPTEUR_TEMP
-#define		APPLICATION
+// #define TEST_CHAUDIERE
+// #define TEST_DUMMY_CAPTEUR_TEMP
+// #define TEST_NETWORK_CAPTEUR_TEMP
+#define APPLICATION
 
 //----------------------------------------------------------------------------
 //--------------------- Unit test : Chaudiere	------------------------------
-#ifdef	TEST_CHAUDIERE
-int main(){
-	bool Ok{false};
+#ifdef TEST_CHAUDIERE
+int main() {
+    bool Ok{false};
 
-	std::println("Test unitaire - Chaudière");
+    std::println("Test unitaire - Chaudière");
 
-	// Test Ctor
-	DummyChaudiere	myBoiler{};
-	//std::cout << "Etat Chaudière après construction : " << static_cast<int>(myBoiler.getStatus())  << " - Should be 1\n";		
-	std::println ("Etat Chaudière après construction : {0:d} - Should be 1",static_cast<int>(myBoiler.getStatus()));
-	assert(myBoiler.getStatus() == Chaudiere::Status::OFF);
+    // Test Ctor
+    DummyChaudiere myBoiler{};
+    // std::cout << "Etat Chaudière après construction : " << static_cast<int>(myBoiler.getStatus())  << " - Should be
+    // 1\n";
+    std::println("Etat Chaudière après construction : {0:d} - Should be 1", static_cast<int>(myBoiler.getStatus()));
+    assert(myBoiler.getStatus() == Chaudiere::Status::OFF);
 
-	// Test SetON - OK
-	myBoiler.setON();
-	//std::cout << "Etat Chaudière après setON : " << static_cast<int>(myBoiler.getStatus())  << " - Should be 0\n";	
-	std::println ("Etat Chaudière après construction : {0:d} - Should be 0",static_cast<int>(myBoiler.getStatus()));	
-	assert(myBoiler.getStatus() == Chaudiere::Status::ON);
+    // Test SetON - OK
+    myBoiler.setON();
+    // std::cout << "Etat Chaudière après setON : " << static_cast<int>(myBoiler.getStatus())  << " - Should be 0\n";
+    std::println("Etat Chaudière après construction : {0:d} - Should be 0", static_cast<int>(myBoiler.getStatus()));
+    assert(myBoiler.getStatus() == Chaudiere::Status::ON);
 
-	// Test SetON - should throw an exception
-	try
-	{
-		myBoiler.setON();
-	}
-	catch(const BoilerAlreadyONexception& e)
-	{
-		std::println("Exception catched OK\n");
-		Ok = true;
-	}
-	assert (Ok == true);
+    // Test SetON - should throw an exception
+    try {
+        myBoiler.setON();
+    } catch (const BoilerAlreadyONexception &e) {
+        std::println("Exception catched OK\n");
+        Ok = true;
+    }
+    assert(Ok == true);
 
-	Ok = false;
+    Ok = false;
 
-	// Test SetOFF - OK
-	myBoiler.setOFF();
-	//std::cout << "Etat Chaudière après setOFF : " << static_cast<int>(myBoiler.getStatus())  << " - Should be 1\n";	
-	std::println ("Etat Chaudière après construction : {0:d} - Should be 1",static_cast<int>(myBoiler.getStatus()));	
-	assert(myBoiler.getStatus() == Chaudiere::Status::OFF);
-	
-	// Test SetOFF - should throw an exception
-	try
-	{
-		myBoiler.setOFF();
-	}
-	catch(const BoilerAlreadyOFFexception& e)
-	{
-		std::println("Exception catched OK\n");
-		Ok = true;
-	}
-	assert (Ok == true);
+    // Test SetOFF - OK
+    myBoiler.setOFF();
+    // std::cout << "Etat Chaudière après setOFF : " << static_cast<int>(myBoiler.getStatus())  << " - Should be 1\n";
+    std::println("Etat Chaudière après construction : {0:d} - Should be 1", static_cast<int>(myBoiler.getStatus()));
+    assert(myBoiler.getStatus() == Chaudiere::Status::OFF);
 
-	std::cout << "Test unitaire Chaudière Validé\n";
+    // Test SetOFF - should throw an exception
+    try {
+        myBoiler.setOFF();
+    } catch (const BoilerAlreadyOFFexception &e) {
+        std::println("Exception catched OK\n");
+        Ok = true;
+    }
+    assert(Ok == true);
 
-	return 0;
+    std::cout << "Test unitaire Chaudière Validé\n";
+
+    return 0;
 }
 #endif
 //----------------------------------------------------------------------------
 //--------------------- Unit test : DummyCapteurTemp	----------------------
-#ifdef	TEST_DUMMY_CAPTEUR_TEMP
-int main(){
+#ifdef TEST_DUMMY_CAPTEUR_TEMP
+int main() {
 
-	std::println("Test unitaire - DummyCapteurTemp");
+    std::println("Test unitaire - DummyCapteurTemp");
 
-	DummyCapteurTemp mySensor{};
+    DummyCapteurTemp mySensor{};
 
-	for (int i = 0; i<10; ++i) std::println("Tirage {0:d} : {1:0.1f}",i ,mySensor.getTemp());
+    for (int i = 0; i < 10; ++i)
+        std::println("Tirage {0:d} : {1:0.1f}", i, mySensor.getTemp());
 
-	return 0;
+    return 0;
 }
 #endif /* 	TEST_DUMMY_CAPTEUR_TEMP 	*/
 
 //----------------------------------------------------------------------------
 //--------------------- Unit test : NetworkCapteurTemp	----------------------
-#ifdef	TEST_NETWORK_CAPTEUR_TEMP
-int main(){
-	float temp;
-	std::cout << "Test unitaire - NetworkCapteurTemp\n";
+#ifdef TEST_NETWORK_CAPTEUR_TEMP
 
-	NetworkCapteurTemp mySensor{};
+/**
+ * To test this unit test, you can use the following command to send UDP packets to the server:
+ * echo -n "215" | nc -4u -w1 localhost 6666
+ * or nc -u localhost 6666 and then type the value followed by Enter - CTRL+C to stop
+ */
 
-	while(true){
-		std::this_thread::sleep_for(3s);
-		temp = mySensor.getTemp();
-		std::println("Temperature = {0:0.1f} °C",temp);
-	}
+int main() {
+    float temp;
+    std::println("Test unitaire - NetworkCapteurTemp");
 
+    NetworkCapteurTemp mySensor{};
 
-	return 0;
+    while (true) {
+        std::this_thread::sleep_for(3s);
+        temp = mySensor.getTemp();
+        std::println("Temperature = {0:0.1f} °C", temp);
+    }
+
+    return 0;
 }
 #endif /* 	TEST_NETWORK_CAPTEUR_TEMP 	*/
 
 //----------------------------------------------------------------------------
 //--------------------------- Application ------------------------------------
-#ifdef	APPLICATION
-int main(){
-	std::println("--- Gestion chaudière - main app - Starting---");
+#ifdef APPLICATION
+int main() {
+    std::println("--- Gestion chaudière - main app - Starting---");
 
-	std::unique_ptr<DummyChaudiere>	pBoiler = std::make_unique<DummyChaudiere>();	/**<  Création Objet Chaudiere avec unique_ptr */
+    std::unique_ptr<DummyChaudiere> pBoiler =
+        std::make_unique<DummyChaudiere>(); /**<  Création Objet Chaudiere avec unique_ptr */
 
-	ThermostatApp	myApp(pBoiler.get());
+    ThermostatApp myApp(pBoiler.get());
 
-	myApp.Init();
-	myApp.Run();
+    myApp.Init();
+    myApp.Run();
 
-	return 0;
-}	
-#endif		/* APPLICATION 	*/
+    return 0;
+}
+#endif /* APPLICATION 	*/
 //----------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
