@@ -1,7 +1,7 @@
 /**
  *	@file	CapteurTemp.hpp
  * 	@brief 	Header file for the CapteurTemp interface
- * 	@author	Alexis ROLLAND
+ * 	@author
  * 	@date	11/2025
  *
  */

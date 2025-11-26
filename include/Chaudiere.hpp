@@ -2,7 +2,7 @@
  *	@file	Chaudiere.hpp
  * 	@brief 	Header file for the Chaudiere interface and the
  * 			DummyChaudiere concrete class
- * 	@author	Alexis ROLLAND
+ * 	@author
  * 	@date	11/2025
  *
  */
