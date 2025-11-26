@@ -31,12 +31,13 @@ void NetworkCapteurTemp::_serverThread() {
     servaddr.sin_port = htons(this->getudpPort());
 
     // Bind the socket with the server address
-    if (bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
+    if (bind(sockfd, reinterpret_cast<const sockaddr *>(&servaddr), sizeof(servaddr)) < 0)
         throw NetworkException("Error while binding the socket.");
     socklen_t len = sizeof(cliaddr);   // len is value/result;
     int n;
     while (true) {
-        n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *)&cliaddr, &len);
+        n = recvfrom(
+            sockfd, static_cast<char *>(buffer), MAXLINE, MSG_WAITALL, reinterpret_cast<sockaddr *>(&cliaddr), &len);
         buffer[n] = '\0';
         std::string stmp{buffer};
 

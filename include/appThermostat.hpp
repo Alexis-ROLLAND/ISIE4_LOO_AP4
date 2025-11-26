@@ -2,7 +2,7 @@
  *	@file		appThermostat.hpp
  * 	@brief 		header file for the Application Interface and ThermostatApp class
  * 	@author		Alexis ROLLAND
- * 	@date		09/2024
+ * 	@date		11/2025
  *
  */
 #ifndef __APP_THERMOSTAT_H__

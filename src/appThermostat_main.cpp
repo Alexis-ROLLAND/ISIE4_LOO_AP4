@@ -2,7 +2,7 @@
  *	@file		appThermostat_main.cpp
  * 	@brief 		main for the Thermostat App
  * 	@author		Alexis ROLLAND
- * 	@date		09/2024
+ * 	@date		11/2025
  *
  */
 #include <memory>
@@ -67,7 +67,7 @@ int main() {
     }
     assert(Ok == true);
 
-    std::cout << "Test unitaire Chaudière Validé\n";
+    std::println("Test unitaire Chaudière Validé");
 
     return 0;
 }
