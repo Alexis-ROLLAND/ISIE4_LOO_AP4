@@ -16,10 +16,11 @@ float DummyCapteurTemp::getTemp() const noexcept {
     this->generator.seed(rdev());
 
     std::uniform_int_distribution<int16_t> distrib{
-        this->getTmin(), this->getTmax()}; /** Construction du "vrai générateur" de nombres aléatoires*/
+        this->getTmin(), this->getTmax()}; /** Construction du "vrai générateur" de nombres aléatoires pour des entiers
+                                              entre Tmin et Tmax */
 
-    int16_t rndValue;
-    uint16_t Ecart;
+    int16_t rndValue{0};
+    uint16_t Ecart{0};
 
     do {
         rndValue = distrib(this->generator);
@@ -31,3 +32,5 @@ float DummyCapteurTemp::getTemp() const noexcept {
 
     return temp;
 }
+
+//----------------------------------------------------------------------------
